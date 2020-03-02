@@ -1,0 +1,34 @@
+
+body{
+    margin: 0;
+    padding: 0;
+}
+table{
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    border-collapse: collapse;
+    border: none;
+}
+
+table td {
+    border: 1px solid #000;
+}
+
+tr:nth-child(even) {
+    background-color: #84869c2e;
+  }
+
+path{
+    fill:none;
+    stroke:#000000;
+}
+
+svg {
+    width: 100vw;
+    height: 100vh;
+}
+
+g{
+    transform: matrix(7,0,0,7,-109,-400);
+}

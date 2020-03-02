@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'Ecatarina';
+    src: url('Ecatarina/EcatarinaLight-Regular.ttf');
+  }
+
+:root {
+    --main-bg-color: #000;
+    --main-txt-color: #fff;
+    --hover-color: #F56B5D;
+    --header-font: 'Lato', sans-serif,'Playfair Display','Ecatarina';
+    --regular-font: 'Lato', sans-serif;
+    --special-font: 'Ecatarina';
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+
+body{
+    color: var(--main-txt-color);
+    font-family: var(--regular-font);
+    font-weight: 300;
+}
+
+/* -------------------------------------- main navigation */
+nav{
+    z-index: 1000;
+    width: 100%;
+    height: 30px;
+    color: var(--main-txt-color);
+    padding-right: 20px;
+    font-family: var(--regular-font);
+    text-align: right;
+}
+
+ul li{
+    display: inline-block;
+    padding: 10px;
+    margin: 2 15px;
+    vertical-align: middle;
+}
+
+a{
+    color: var(--main-txt-color);
+    text-decoration: none;
+    transition: font-weight 300ms ease-in-out, text-shadow 300ms ease-in-out 0s;
+}
+
+a:hover{
+    font-weight: 900;
+    text-shadow: 1px 1px 12px pink;
+}
+
+
+/* ------------------------------------------- planets navigation */
+#planets-list{
+    margin-top: 82vh;
+    text-align: left;
+}
+
+#title{
+    color: var(--hover-color);
+    font-size: 3.2em;
+    font-family: var(--special-font);
+}
+
+/* --------------------------------------------*/
+#info-left{
+    position: absolute;
+    left: 20px;
+    top: 22%;
+}
+
+#info-right{
+    position: absolute;
+    right: 20px;
+    top: 30%;
+    text-align: right;
+}
+
+h1{
+    font-size: 0.7em;
+    text-transform: uppercase;
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+.infos{
+    font-size: 3em;
+    font-family: var(--header-font);
+    margin-bottom: 30vh;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+section{
+    height: 100vh;
+}
+
+footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1em;
+}
