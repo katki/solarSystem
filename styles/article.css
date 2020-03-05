@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Ecatarina';
-    src: url('Ecatarina/EcatarinaLight-Regular.ttf');
+    src: url('../Ecatarina/EcatarinaLight-Regular.ttf');
 }
 
 :root {
@@ -112,7 +112,7 @@ h4{
 }
 
 h1, h2, p {
-    padding-left: 20px;
+    padding: 20px;
 }
 
 a{
@@ -189,18 +189,33 @@ img{
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+#grid{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        padding: 10px;
+      
+}
+
+.grid-item{
+    text-align: center;
+    background-size: cover;
+}
 
 
-
-
+@media screen and (max-width: 950px){
+    #grid{
+        grid-template-columns: auto auto;
+    }
+}
 
 @media screen and (max-width: 700px) {
     #navigationPanel{
-        width: 40vw;
+        display: none;
     }
 
     .section{
-        width: 60vw;
+        width: 100vw;
+        margin: 0;
     }
     #intro{
         width: 80vw;
@@ -211,5 +226,29 @@ img{
         display: block;
         width: auto;
     }
+
+    .dates{
+        display: block;
+        width: 80vw;
+    }
+
+    img{
+        display: block;
+        margin: 10px auto;
+        width: 80vw;
+    }
+    #grid{
+        grid-template-columns: auto auto;
+    }
 }
-    
+
+
+@media screen and (max-width: 450px){
+    #grid{
+        grid-template-columns: auto ;
+    }
+
+    #main-nav ul li {
+        margin: 0 auto;
+    }
+}
