@@ -2,12 +2,16 @@
     font-family: 'Ecatarina';
     src: url('../Ecatarina/EcatarinaLight-Regular.ttf');
   }
+@font-face {
+    font-family: 'Earth Orbiter';
+    src: url('../earth-orbiter/earthorbiter.ttf');
+}
 
 :root {
     --main-bg-color: #000;
     --main-txt-color: #fff;
-    --hover-color: #F56B5D;
-    --header-font: 'Lato', sans-serif,'Playfair Display','Ecatarina';
+    --hover-color: #DF4044;
+    --header-font: 'Earth Orbiter', sans-serif,'Playfair Display','Ecatarina';
     --regular-font: 'Lato', sans-serif;
     --special-font: 'Ecatarina';
 }
@@ -47,8 +51,7 @@ a{
 }
 
 a:hover{
-    font-weight: 900;
-    text-shadow: 1px 1px 12px pink;
+    color: var(--hover-color);
 }
 
 
@@ -56,6 +59,7 @@ a:hover{
 #planets-list{
     margin-top: 82vh;
     text-align: left;
+    height: auto;
 }
 
 #title{
@@ -79,22 +83,20 @@ a:hover{
 }
 
 h1{
-    font-size: 0.7em;
+    font-size: 1em;
     text-transform: uppercase;
     font-weight: 200;
     margin-bottom: 5px;
+    font-family: var(--header-font);
+    font-weight: 300;
 }
 
 .infos{
-    font-size: 3em;
-    font-family: var(--header-font);
+    font-size: 2.3em;
+    font-family: var(--regular-font);
     margin-bottom: 30vh;
     padding-top: 0;
     margin-top: 0;
-}
-
-section{
-    height: 100vh;
 }
 
 footer {

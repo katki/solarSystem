@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Device orientation </title>
+    <style>
+        section {
+            margin: 0;
+            padding: 0;
+            width: 50vw;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="orientationSection">
+        <h1> Device orientation</h1>
+
+    </section>
+
+    <script>
+
+        function orientationHandler(oEvent) {
+            const section = document.getElementById("orientationSection");
+            let r = ev.alpha / 1.4117;
+            let g = (ev.beta + 180) / 1.4117;
+            let b = (ev.gamma + 90) * 1.4166;
+
+            section.style.backgroundColor = rgb(r, g, b);
+        }
+
+
+        window.addEventListener('deviceorientation', orientationHandler);
+
+
+    </script>
+
+
+</body>
+
+</html>

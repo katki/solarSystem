@@ -171,60 +171,60 @@ body {
 		transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
 	}
 }
-/* sideral years */
+
 
 #mercury .pos,
 #mercury .planet,
 #mercury.orbit {
-	animation-duration: 2.89016s;
+	animation-duration: 2.89s;
 }
 
 #venus .pos,
 #venus .planet,
 #venus.orbit {
-	animation-duration: 7.38237s;
+	animation-duration: 7.38s;
 }
 
 #earth .pos,
 #earth .planet,
 #earth.orbit {
-	animation-duration: 12.00021s;
+	animation-duration: 12.00s;
 }
 
 #earth .orbit .pos,
 #earth .orbit {
-	animation-duration: 0.89764s;
+	animation-duration: 0.90s;
 }
 
 #mars .pos,
 #mars .planet,
 #mars.orbit {
-	animation-duration: 22.57017s;
+	animation-duration: 22.57s;
 }
 
 #jupiter .pos,
 #jupiter .planet,
 #jupiter.orbit {
-	animation-duration: 142.35138s;
+	animation-duration: 142.35s;
 }
 
 #saturn .pos,
 #saturn .planet,
 #saturn.orbit,
 #saturn .ring {
-	animation-duration: 353.36998s;
+	animation-duration: 353.37s;
 }
 
 #uranus .pos,
 #uranus .planet,
 #uranus.orbit {
-	animation-duration: 1008.20215s;
+	animation-duration: 1008.20s;
 }
 
 #neptune .pos,
 #neptune .planet,
 #neptune.orbit {
-	animation-duration: 1977.49584s;
+	animation-duration: 1977.50s;
 }
 
 #mercury .planet {
