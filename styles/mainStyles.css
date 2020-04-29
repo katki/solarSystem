@@ -26,15 +26,17 @@ body{
     font-weight: 300;
 }
 
+main{
+    height: 100vh;
+}
 /* -------------------------------------- main navigation */
 nav{
     z-index: 1000;
     width: 100%;
     height: 30px;
     color: var(--main-txt-color);
-    padding-right: 20px;
     font-family: var(--regular-font);
-    text-align: right;
+    text-align: center;
 }
 
 ul li{
@@ -58,7 +60,7 @@ a:hover{
 /* ------------------------------------------- planets navigation */
 #planets-list{
     margin-top: 82vh;
-    text-align: left;
+    text-align: center;
     height: auto;
 }
 

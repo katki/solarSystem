@@ -1,195 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" type="text/css"  href="styles/style.css">
-        <link rel="stylesheet" type="text/css"  href="styles/mainStyles.css">
-        <meta charset="utf-8">
-        <link href="https://fonts.googleapis.com/css?family=Lato:300,400%7CPlayfair+Display&display=swap" rel="stylesheet">
-        <title>Solar system | Overview</title>
-        <script>
-          const info = {
-            "mercury": {
-                "distance": "31 404 428",
-                "length":"88",
-                "size":"2.6x smaller than Earth",
-                "type":"Terrestrial"
-            },
-            "venus": {
-                "distance": "66 904 186",
-                "length":"225",
-                "size":"1.1x smaller than Earth",
-                "type":"Terrestrial"
-            },
-            "earth": {
-                "distance": "91 943 427",
-                "length":"365",
-                "size":"it's Earth ",
-                "type":"Terrestrial"
-            },
-            "mars": {
-                "distance": "141 795 342",
-                "length":"687",
-                "size":"1.9x smaller than Earth",
-                "type":"Terrestrial"
-            },
-            "jupiter": {
-                "distance": "484 143 841",
-                "length":"4333",
-                "size":"11.0x larger than Earth",
-                "type":"Gas Giant"
-            },
-            "saturn": {
-                "distance": "932 237 339",
-                "length":"10 759",
-                "size":"9.1x larger than Earth",
-                "type":"Gas Giant"
-            },
-            "uranus": {
-                "distance": "1 885 918 176",
-                "length":"30 687",
-                "size":"4.0x larger than Earth",
-                "type":"Ice Giant"
-            },
-            "neptune": {
-                "distance": "2 782 356 748",
-                "length":"60 190",
-                "size":"3.9x larger than Earth",
-                "type":"Ice Giant"
-            },
 
-          }
-          
-          function onShowInfo(planet) {
-            let aHeaderId = ["header-distance", "header-length", "header-size", "header-type"];
-            let aHeaderText = ["Distance from sun (km)","Length of year (days)","Size","Planet type"];
-            let aHeaderTextDefault = ["Planets|Dwarf Planets","Moons","Asteroids","Comets"]; 
-            let aInfoId = ["distance", "length", "size", "type"];
-            let aDefaultInfo = ["8|5", "200+", "934 254", "3 610"];
+<head>
 
-            if(planet == null){
-              for(let i = 0; i < aHeaderId.length; i++){
-                document.getElementById(aHeaderId[i]).innerHTML = aHeaderTextDefault[i];
-                document.getElementById(aInfoId[i]).innerHTML = aDefaultInfo[i];
-              }
-            }else{
-              for(let i = 0; i < aHeaderId.length; i++){
-                document.getElementById(aHeaderId[i]).innerHTML = aHeaderText[i];
-              }
-              document.getElementById(aInfoId[0]).innerHTML = info[planet].distance;
-              document.getElementById(aInfoId[1]).innerHTML = info[planet].length;
-              document.getElementById(aInfoId[2]).innerHTML = info[planet].size;
-              document.getElementById(aInfoId[3]).innerHTML = info[planet].type;
-            }
-
-            onHighlightPlanet(planet);
-          }
-
-          function onHighlightPlanet(planet){
-            if(planet == null) return;
-          //  document.getElementById(planet).style.boxShadow = "0px 0px 260px rgba(255, 160, 60, 0.6);";
-          }
-
-          function onInit(){
-            onShowInfo(null);
-          }
-        </script>
-    </head>
+	<link rel="stylesheet" type="text/css" href="styles/discussion.css">
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+	<link rel="stylesheet" type="text/css" href="styles/mainStyles.css">
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400%7CPlayfair+Display&display=swap" rel="stylesheet">
+	<title>Solar system | Overview</title>
+</head>
 
 <body onload="onInit()">
-  <main>
-    <nav id="main-nav">
-        <ul>
-            <li><a style="color:#DF4044;" href="#">Overview</a></li>
-            <li><a href="discussion.html">Discussion</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    <div id="universe">
-        <div id="solar-system" class="earth">
-          <div id="mercury" class="orbit">
-            <div class="pos">
-              <div class="planet">
-              </div>
-            </div>
-          </div>
-          <div id="venus" class="orbit">
-            <div class="pos">
-              <div class="planet">
-              </div>
-            </div>
-          </div>
-          <div id="earth" class="orbit">
-            <div class="pos">
-              <div class="planet">
-              </div>
-            </div>
-          </div>
-          <div id="mars" class="orbit">
-            <div class="pos">
-              <div class="planet">
-              </div>
-            </div>
-          </div>
-          <div id="jupiter" class="orbit">
-            <div class="pos">
-              <div class="planet">
-              </div>
-            </div>
-          </div>
-          <div id="saturn" class="orbit">
-            <div class="pos">
-              <div class="planet">
-                <div class="ring"></div>
-              </div>
-            </div>
-          </div>
-          <div id="uranus" class="orbit">
-            <div class="pos">
-              <div class="planet">
-              </div>
-            </div>
-          </div>
-          <div id="neptune" class="orbit">
-            <div class="pos">
-              <div class="planet">
-              </div>
-            </div>
-          </div>
-          <div id="sun">
-          </div>
+	<main>
+		<nav id="main-nav">
+			<ul>
+				<li><a href="#welcome">Welcome</a></li>
+				<li><a href="#articles/1/20">Articles</a></li>
+				<li><a href="#commentSection">Opinions</a></li>
+				<li><a href="newComment.html">New opinion</a></li>
+
+			</ul>
+		</nav>
+		<div id="universe">
+			<div id="solar-system" class="earth">
+				<div id="mercury" class="orbit">
+					<div class="pos">
+						<div class="planet">
+						</div>
+					</div>
+				</div>
+				<div id="venus" class="orbit">
+					<div class="pos">
+						<div class="planet">
+						</div>
+					</div>
+				</div>
+				<div id="earth" class="orbit">
+					<div class="pos">
+						<div class="planet">
+						</div>
+					</div>
+				</div>
+				<div id="mars" class="orbit">
+					<div class="pos">
+						<div class="planet">
+						</div>
+					</div>
+				</div>
+				<div id="jupiter" class="orbit">
+					<div class="pos">
+						<div class="planet">
+						</div>
+					</div>
+				</div>
+				<div id="saturn" class="orbit">
+					<div class="pos">
+						<div class="planet">
+							<div class="ring"></div>
+						</div>
+					</div>
+				</div>
+				<div id="uranus" class="orbit">
+					<div class="pos">
+						<div class="planet">
+						</div>
+					</div>
+				</div>
+				<div id="neptune" class="orbit">
+					<div class="pos">
+						<div class="planet">
+						</div>
+					</div>
+				</div>
+				<div id="sun">
+				</div>
+			</div>
+		</div>
+
+		<nav id="planets-list">
+			<ul>
+				<li onmouseover="onShowInfo(null)">
+					<a href="#" id="title">Solar system</a></li>
+				<li onmouseover="onShowInfo('mercury')" onmouseout="onShowInfo(null)">
+					<a href="mercury.html" id="mercury-info">Mercury</a></li>
+				<li onmouseover="onShowInfo('venus')" onmouseout="onShowInfo(null)">
+					<a href="https://en.wikipedia.org/wiki/Venus" id="venus-info">Venus</a>
+				</li>
+				<li onmouseover="onShowInfo('earth')" onmouseout="onShowInfo(null)">
+					<a href="#" id="earth-info">Earth</a></li>
+				<li onmouseover="onShowInfo('mars')" onmouseout="onShowInfo(null)">
+					<a href="mars.html" id="mars-info">Mars</a></li>
+				<li onmouseover="onShowInfo('jupiter')" onmouseout="onShowInfo(null)">
+					<a href="jupiter.html" id="jupiter-info">Jupiter</a></li>
+				<li onmouseover="onShowInfo('saturn')" onmouseout="onShowInfo(null)">
+					<a href="#" id="saturn-info">Saturn</a></li>
+				<li onmouseover="onShowInfo('uranus')" onmouseout="onShowInfo(null)">
+					<a href="#" id="uranus-info">Uranus</a></li>
+				<li onmouseover="onShowInfo('neptune')" onmouseout="onShowInfo(null)">
+					<a href="#" id="neptune-info">Neptune</a></li>
+			</ul>
+		</nav>
+
+		<div id="info-left">
+			<h1 id="header-distance">Distance from sun</h1>
+			<p class="infos" id="distance"></p>
+			<h1 id="header-length">Length of year</h1>
+			<p class="infos" id="length"></p>
+		</div>
+
+		<div id="info-right">
+			<h1 id="header-size">Size</h1>
+			<p class="infos" id="size"></p>
+			<h1 id="header-type">Planet type</h1>
+			<p class="infos" id="type"></p>
+		</div>
+	</main>
+
+	<section id="router-view"></section>
+
+	<footer id="contact">
+		<p>Created by Katarina Golenyova (<a href="mailto:katarina.golenyova@student.tuke.sk">
+				katarina.golenyova@student.tuke.sk</a>) <button class="button" onclick="up()">⬆</button></p>
+
+	</footer>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"
+	integrity="sha256-MPgtcamIpCPKRRm1ppJHkvtNBAuE71xcOM+MmQytXi8=" crossorigin="anonymous"></script>
+
+<script id="template-welcome" type="text/template">
+	<article>
+		<p id="welcome">
+			Welcome to my page. My name is <b>Katka Golenyová</b>. I live in <i>our Solar system</i>. I am a <i>really sad for Pluto</i>.
+			But I would like to tell you someting about our other planets. 
+		</p>
+	</article>
+</script>
+
+<script id="commentTemplate" type="text/template">
+    <div class="comment">
+        <img src={{url}}>
+        <span class="content">
+            <h3>{{title}} </h3>
+            <p class="createdDate"> Created on {{createdDate}} by <a class="createdDate" href={{showEmail}}>{{author}}</a></p>
+            <p>{{comment}}</p>
+        </span>                
+        <div class="keywords">
+            {{keywords}}
         </div>
-    </div>
+	</div>
+</script>
 
-    <nav id="planets-list">
-      <ul>
-        <li onmouseover="onShowInfo(null)"><a href="#" id="title">Solar system</a></li>
-        <li onmouseover="onShowInfo('mercury')" onmouseout="onShowInfo(null)"><a href="mercury.html" id="mercury-info" title="get more info with one click">Mercury</a></li>
-        <li onmouseover="onShowInfo('venus')" onmouseout="onShowInfo(null)"><a href="https://en.wikipedia.org/wiki/Venus" id="venus-info" title="get more info with one click">Venus</a></li>
-        <li onmouseover="onShowInfo('earth')" onmouseout="onShowInfo(null)"><a href="#" id="earth-info" title="get more info with one click">Earth</a></li>
-        <li onmouseover="onShowInfo('mars')" onmouseout="onShowInfo(null)"><a href="mars.html" id="mars-info" title="get more info with one click">Mars</a></li>
-        <li onmouseover="onShowInfo('jupiter')" onmouseout="onShowInfo(null)"><a href="jupiter.html" id="jupiter-info" title="get more info with one click">Jupiter</a></li>
-        <li onmouseover="onShowInfo('saturn')" onmouseout="onShowInfo(null)"><a href="#" id="saturn-info" title="get more info with one click">Saturn</a></li>
-        <li onmouseover="onShowInfo('uranus')" onmouseout="onShowInfo(null)"><a href="#" id="uranus-info" title="get more info with one click">Uranus</a></li>
-        <li onmouseover="onShowInfo('neptune')" onmouseout="onShowInfo(null)"><a href="#" id="neptune-info" title="get more info with one click">Neptune</a></li>
-      </ul>
-    </nav>
+<script id="articleTemplate" type="text/template">
+	<div class="article">
+        <img src={{imageLink}}>
+        <span class="content">
+            <h3>{{title}} </h3>
+			<p class="createdDate"> Created on {{dateCreated}} by {{author}}</p>
+			<p class="createdDate"> Last updated {{lastUpdated}}</p>
+			<p>{{content}}</p>
+			<!--button class="button" onclick={{showDetail}}>Show me more</button-->
+        </span>                
+        <div class="keywords">
+            {{tags}}
+        </div>
+	</div>
+</script>
 
-    <div id="info-left">
-      <h1 id="header-distance">Distance from sun</h1>
-      <p class="infos" id="distance"></p>
-      <h1 id="header-length">Length of year</h1>
-      <p class="infos" id="length"></p>
-    </div>
+<script id="template-articles-error" type="text/template">
 
-    <div id="info-right">
-      <h1 id="header-size">Size</h1>
-      <p class="infos" id="size"></p>
-      <h1 id="header-type">Planet type</h1>
-      <p class="infos" id="type"></p>
-    </div>
-  </main>
-  <footer id="contact">
-    <p>Created by Katarina Golenyova (<a href="mailto:katarina.golenyova@student.tuke.sk"> katarina.golenyova@student.tuke.sk</a>)</p>
-  </footer>
-  </body>
-  </html>
+    <article>
+        <h2>Articles acquisition failed</h2>
+        <p>
+            {{errMessage}}
+        </p>
+    </article>
+    <footer  class="menuLink"><a href="#menuTitle">Back to the menu</a></footer>
+
+</script>
+
+
+<script type="module" src="scripts/routerInit.js"></script>
+<script src="scripts/planetsInfo.js"></script>
+
+</html>

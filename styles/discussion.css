@@ -8,6 +8,16 @@ body{
     color: white;
 }
 
+#router-view{
+    width: 80vw;
+    margin: 0 auto;
+    padding-bottom: 5vh;
+}
+
+#welcome{
+    text-align: center;
+}
+
 #keywordsSection{
     padding-left: 5%;
 }
@@ -32,50 +42,41 @@ body{
     color: white;
 }
 
-ul{
-    width: 25%;
-    display: inline-block;
-    text-align: right;
-    float: right;
-    margin-right: 10vw;
-}
 
 ul li{
     display: inline-block;
     padding: 2%;
 }
 
-a{
-    color: white;
-    text-decoration: none;
-    border: none;
-}
-
-a:hover{
-    color: #DF4044;
-    border-bottom: 1px solid #DF4044;
-}
-
-.comment{
+.comment,
+.article{
     width: 80vw;
-    margin: 5% 10%;
+    margin: 5% 0%;
     background-color: #fff;
     color: black;
     border-radius: 4px;
     min-height: 144px;
 }
 
-img{
+.comment img{
     width: 100px;
     display: inline-block;
     padding: 20px;
     border-radius: 50%;
 }
 
-.content{
+.article img{
+    max-height: 15vh;
+}
+
+.comment .content{
     display: inline-block;
     width: calc(80vw - 140px);
     position: absolute;
+}
+
+.article {
+    padding: 5vh 5vw;
 }
 
 .createdDate{
@@ -110,10 +111,4 @@ h3{
 .info{
     text-align: center;
     padding-top: 10vh;
-
-@media screen and (max-width: 850px) {
-    .keywords{
-
-    }
-
 }
