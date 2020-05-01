@@ -24,8 +24,7 @@ body{
 
 .button {
     padding: 10px;
-    margin: 0 2%;
-    margin-top: 20px;
+    margin: 20px 2%;
     display: inline-block;
     background-color: #DF4044;
     border: 1px solid #DF4044;

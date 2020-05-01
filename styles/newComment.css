@@ -8,7 +8,7 @@ body{
     color: white;
 }
 
-section{
+#left-section, #right-section{
     display: inline-block;
     margin: 0;
 }
@@ -31,7 +31,7 @@ section{
     padding: 30px 0;
 }
 
-h1{
+#left-section h1{
     width: 43%;
     position: fixed;
     text-transform: uppercase;
@@ -144,16 +144,17 @@ input[type="radio"]:checked + label:after {
 
   /*------ buttons ----- */
 
-button{
+ .button{
     width: 40%;
     margin: 0 4.7%;
+    margin-bottom: 2%;
     display: inline-block;
     background-color: #DF4044;
     border: 1px solid #DF4044;
     border-radius: 30px;
 }
 
-button:hover{
+ .button:hover{
     -webkit-box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
     -moz-box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
     box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
@@ -165,16 +166,6 @@ input:invalid{
 
 .required:before{
     content: '* ';
-}
-
-a{
-    color: white;
-    text-decoration: none;
-    border-bottom: 2px solid #DF4044;
-}
-
-a:hover{
-    color: #DF4044;
 }
 
 /*#rocket-path, 
@@ -199,4 +190,13 @@ ellipse*/
 
 @keyframes go-left {
     100% { opacity: 0; } 
+}
+
+.hiddenElm{
+    display: none;
+}
+
+#imageUrl{
+    width: 43vw;
+    display: inline;
 }

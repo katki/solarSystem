@@ -52,6 +52,10 @@ a{
     transition: font-weight 300ms ease-in-out, text-shadow 300ms ease-in-out 0s;
 }
 
+h3 a {
+    color: #000;
+}
+
 a:hover{
     color: var(--hover-color);
 }
@@ -104,4 +108,13 @@ h1{
 footer {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1em;
+}
+
+#upButton{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1.5em;
+    width: 2em;
+    height: 2em;
 }

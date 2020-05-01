@@ -86,3 +86,10 @@ function onInit() {
 function up() {
     window.scrollTo({ top: 0, behavior: 'auto' });
 }
+
+window.addEventListener("scroll", function (e) {
+    const y = window.scrollY;
+    if (y > 200)
+        document.getElementById("upButton").style.display = "block";
+    else document.getElementById("upButton").style.display = "none";
+});
