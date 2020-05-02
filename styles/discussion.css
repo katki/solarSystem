@@ -8,16 +8,6 @@ body{
     color: white;
 }
 
-#router-view{
-    width: 80vw;
-    margin: 0 auto;
-    padding-bottom: 5vh;
-}
-
-#welcome{
-    text-align: center;
-}
-
 #keywordsSection{
     padding-left: 5%;
 }
@@ -50,11 +40,16 @@ ul li{
 .comment,
 .article{
     width: 80vw;
-    margin: 5% 0%;
+    margin: 5% 10vw;
     background-color: #fff;
     color: black;
     border-radius: 4px;
     min-height: 144px;
+}
+
+.comment{
+    background: rgba(255, 255, 255, 0.07);
+    color: white;
 }
 
 .comment img{
@@ -65,7 +60,15 @@ ul li{
 }
 
 .article img{
-    max-height: 15vh;
+    max-height: 45vh;
+    max-width: 45vw;
+}
+
+.article .p a {
+    color: #DF4044;
+}
+.article .p a:hover{
+    text-decoration: underline;
 }
 
 .comment .content{

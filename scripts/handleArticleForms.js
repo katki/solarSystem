@@ -231,9 +231,7 @@ function addArticle(event, serverUrl) {
         delete articleData.imageLink;
     }
 
-    if (!articleData.tags) {
-        delete articleData.tags;
-    } else {
+    if (articleData.tags) {
         articleData.tags = articleData.tags.split(",");
         articleData.tags = articleData.tags.map(tag => tag.trim());
 
@@ -241,9 +239,10 @@ function addArticle(event, serverUrl) {
         if (articleData.tags.length == 0) {
             delete articleData.tags;
         }
-
-        articleData.tags.push(tag)
     }
+    articleData.tags.push(tag)
+
+    console.log(articleData.tags)
 
     const postReqSettings = {
         method: 'POST',
@@ -312,3 +311,54 @@ async function addComment(evt, url, id) {
 
 }
 
+
+
+/* ******************** OPINIONS **************************** */
+
+const back4appURL = "https://parseapi.back4app.com/classes/opinions";
+const apiKey = "dyN63OIBos5My08QmXrc9Ci2qypbq6hQgoUeuXqp";
+const appId = "gXH1AQMIHBTbR7lU8Y8UyAD7V8yqYOQlRqY6bHIK";
+
+async function addOpinion(evt) {
+    evt.preventDefault();
+
+    if (document.getElementById("terms").checked == false) {
+        alert("You can not add comment, if you don't agree with terms.");
+        return;
+    }
+
+    const inputs = document.getElementById("form").elements;
+    let oComment = {};
+    oComment.name = inputs.name.value;
+    oComment.url = inputs.url.value == "" ? "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" : inputs.url.value;
+    oComment.email = inputs.yes.checked == "" ? "#" : inputs.email.value;
+    oComment.comment = inputs.comment.value;
+    oComment.created = new Date();
+    oComment.title = inputs.titlecomment.value;
+    oComment.showName = inputs.yes.checked;
+    oComment.keywords = inputs.keywords.value;
+
+    try {
+        const options = {
+            method: 'POST',
+            headers: {
+                'X-Parse-Application-Id': appId,
+                'X-Parse-REST-API-Key': apiKey,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(oComment),
+        };
+        const response = await fetch(back4appURL, options);
+        if (!response.ok) throw new Error(`Server answered with ${response.status}: ${response.statusText}.`);
+    } catch (error) {
+        console.log(error)
+        // alert(error);
+    } finally {
+        window.location.hash = `#commentSection`
+    }
+}
+
+
+function closeForm(evt) {
+    document.getElementById("newCommentForm").innerHTML = ''
+}

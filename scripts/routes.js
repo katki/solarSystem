@@ -1,4 +1,4 @@
-const articlesPerPage = 20;
+const articlesPerPage = 10;
 const urlBase = "http://wt.kpi.fei.tuke.sk/api";
 const back4appURL = "https://parseapi.back4app.com/classes/opinions";
 const tag = "solarSystem";
@@ -24,8 +24,7 @@ export default [
     }, {
         hash: "addOpinion",
         target: "router-view",
-        getTemplate: (targetElm) =>
-            document.getElementById(targetElm).innerHTML = document.getElementById("template-addOpinion").innerHTML
+        getTemplate: renderOpinionForm
     }, {
         hash: "article",
         target: "router-view",
@@ -44,7 +43,7 @@ export default [
         getTemplate: newArticleForm
     }, {
         hash: "newCommentForArticle",
-        target: "comments",
+        target: "newCommentForm",
         getTemplate: newCommentForArticle
     }, {
         hash: "commentsForArticle",
@@ -54,15 +53,32 @@ export default [
 
 ];
 
+function renderOpinionForm(targetElm) {
+    let a = { author: "", email: "" };
+    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+        a.author = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
+        a.email = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+    }
+    document.getElementById(targetElm).innerHTML = Mustache.render(document.getElementById("template-addOpinion").innerHTML, a);
+}
+
+
 async function fetchAndDisplayArticles(targetElm, current, total) {
     let articleList;
     let urlParams = "";
 
+    //test4generateArticles();
+
     if (current && total) {
+        current = parseInt(current);
+        total = parseInt(total);
         urlParams += `?offset=${current}&max=${articlesPerPage}&tag=${tag}`;
     } else {
         urlParams += `?max=${articlesPerPage}&tag=${tag}`;
+        current = 0;
     }
+
+    //console.log(current + " " + total);
 
     try {
         const response = await fetch(`${urlBase}/article` + urlParams);
@@ -70,6 +86,8 @@ async function fetchAndDisplayArticles(targetElm, current, total) {
 
         const responseJSON = await response.json();
         articleList = createArticles(responseJSON);
+
+        total = responseJSON.meta.totalCount;
 
         const p = articleList.map(article => fetch(`${urlBase}/article/${article.id}`));
         const contentRequests = await Promise.all(p);
@@ -83,7 +101,10 @@ async function fetchAndDisplayArticles(targetElm, current, total) {
 
         articles.forEach((article, index) => {
             articleList[index].content = article.content;
+            if (articleList[index].tags.indexOf(tag) != -1) articleList[index].tags.pop();
         });
+
+        document.getElementById("routeArticles").href = "#articles/" + current + "/" + total;
 
         renderArticles(targetElm);
 
@@ -130,8 +151,7 @@ function newArticleForm(targetElm) {
 }
 
 
-async function deleteArticle(targetElm, artIdFromHash, offsetFromHash, totalCountFromHash) {
-
+async function deleteArticle(targetElm, artIdFromHash) {
     const id = parseInt(artIdFromHash);
     const deleteReqSettings = { method: 'DELETE' };
 
@@ -170,8 +190,7 @@ async function fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, 
         }
 
         const article = await response.json();
-
-        if (article.tags.indexOf(tag)) article.tags.pop();
+        if (article.tags.indexOf(tag) != -1) article.tags.pop();
         console.log(article.tags)
 
         if (forEdit) {
@@ -215,7 +234,7 @@ async function loadCommentsForArticle(targetElm, artIdFromHash, offset) {
         renderComments("comments", artIdFromHash, comments.comments, comments.meta.offset, comments.meta.totalCount);
 
     } catch (error) {
-        alert("loadCommentsForArticle: " + error);
+        console.log("loadCommentsForArticle: " + error);
     }
 }
 
@@ -249,10 +268,10 @@ function createArticles(responseJSON) {
 }
 
 function renderComments(targetElm, artIdFromHash, sourceData, current, total) {
-    console.log(current + "  " + total)
+    const commentElement = document.getElementById(targetElm);
+    if (commentElement == null) return;
     current = parseInt(current);
     const emptyComments = "<p class='info'> No comments yet.</p>"
-    const commentElement = document.getElementById(targetElm);
     const n = current + 10;
 
     const prev = current > 0 ? "<a class='button' href='#commentsForArticle/" + artIdFromHash + "/" + (current - 10) + "'>Prev</a>" : "";
@@ -281,7 +300,6 @@ async function renderOpinions(targetElm) {
         if (!response.ok) throw new Error(`Server answered with ${response.status}: ${response.statusText}.`);
 
         let discussion = await response.json();
-        console.log(discussion)
         if (discussion.results.length > 0) commentElement.innerHTML = discussion.results.reduce((a, i) => a + generate(i, false), "");
         else commentElement.innerHTML = emptyComments;
 
@@ -303,6 +321,7 @@ function generate(comment, fromServer) {
         comment.createdDate = new Date(comment.created).toDateString();
         comment.author = comment.showName ? comment.name : "anonymous";
         comment.showEmail = "mailto:" + comment.email;
+        comment.keywords = comment.keywords ? comment.keywords : "No keywords for this opinion";
         let html = Mustache.render(template, comment);
         delete (comment.createdDate);
         delete (comment.author);
@@ -311,15 +330,56 @@ function generate(comment, fromServer) {
     }
 }
 
-function removeOldComments() {
-    console.log(discussion)
-    let removed = 0;
-    for (let i = 0; i < discussion.length; i++) {
-        if (Date.now() - new Date(discussion[i].created) > 30283179) {
-            discussion.splice(i);
-        }
+function test4generateArticles() {
+    for (let i = 0; i < 20; i++) {
+        const articleData = {
+            title: "title " + i,
+            content: "content  " + i,
+            author: "author " + i,
+            imageLink: "",
+            tags: []
+        };
+
+        articleData.tags.push("solarSystem");
+        articleData.tags.push("test");
+
+
+        const postReqSettings = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            body: JSON.stringify(articleData),
+        };
+
+        fetch(`${urlBase}/article`, postReqSettings)
+            .then(response => {
+                console.log(response);
+
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return Promise.reject(new Error(`Server answered with ${response.status}: ${response.statusText}.`));
+                }
+            })
+            .then(responseJSON => {
+                console.log(responseJSON)
+                ids.push(JSON.id);
+            })
+            .catch(error => {
+                console.log(error);
+                window.alert(`Failed to save the updated article on server. ${error}`);
+            });
     }
-    discussion.length -= removed;
-    renderOpinions("router-view", discussion);
-    localStorage.discussion = JSON.stringify(discussion);
+
+    function removeTestArticles() {
+        if (ids.length == 0) return;
+
+        ids.forEach(id => {
+            deleteArticle("targetElm", id);
+        });
+        ids.length = 0;
+    }
+
+
 }

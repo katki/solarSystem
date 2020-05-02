@@ -19,110 +19,18 @@
 		<nav id="main-nav">
 			<ul>
 				<li><a href="#welcome">Welcome</a></li>
-				<li><a href="#articles">Articles</a></li>
+				<li><a href="#articles" id="routeArticles">Articles</a></li>
 				<li><a href="#commentSection">Opinions</a></li>
-				<li><a href="newComment.html">New opinion</a></li>
+				<li><a href="#addOpinion">New opinion</a></li>
 				<li><a href="#artInsert">New article</a></li>
 				<li>
 					<div class="g-signin2" data-onsuccess="onSignIn"></div>
 				</li>
 			</ul>
 		</nav>
-		<div id="universe">
-			<div id="solar-system" class="earth">
-				<div id="mercury" class="orbit">
-					<div class="pos">
-						<div class="planet">
-						</div>
-					</div>
-				</div>
-				<div id="venus" class="orbit">
-					<div class="pos">
-						<div class="planet">
-						</div>
-					</div>
-				</div>
-				<div id="earth" class="orbit">
-					<div class="pos">
-						<div class="planet">
-						</div>
-					</div>
-				</div>
-				<div id="mars" class="orbit">
-					<div class="pos">
-						<div class="planet">
-						</div>
-					</div>
-				</div>
-				<div id="jupiter" class="orbit">
-					<div class="pos">
-						<div class="planet">
-						</div>
-					</div>
-				</div>
-				<div id="saturn" class="orbit">
-					<div class="pos">
-						<div class="planet">
-							<div class="ring"></div>
-						</div>
-					</div>
-				</div>
-				<div id="uranus" class="orbit">
-					<div class="pos">
-						<div class="planet">
-						</div>
-					</div>
-				</div>
-				<div id="neptune" class="orbit">
-					<div class="pos">
-						<div class="planet">
-						</div>
-					</div>
-				</div>
-				<div id="sun">
-				</div>
-			</div>
-		</div>
 
-		<nav id="planets-list">
-			<ul>
-				<li onmouseover="onShowInfo(null)">
-					<a href="#" id="title">Solar system</a></li>
-				<li onmouseover="onShowInfo('mercury')" onmouseout="onShowInfo(null)">
-					<a href="mercury.html" id="mercury-info">Mercury</a></li>
-				<li onmouseover="onShowInfo('venus')" onmouseout="onShowInfo(null)">
-					<a href="https://en.wikipedia.org/wiki/Venus" id="venus-info">Venus</a>
-				</li>
-				<li onmouseover="onShowInfo('earth')" onmouseout="onShowInfo(null)">
-					<a href="#" id="earth-info">Earth</a></li>
-				<li onmouseover="onShowInfo('mars')" onmouseout="onShowInfo(null)">
-					<a href="mars.html" id="mars-info">Mars</a></li>
-				<li onmouseover="onShowInfo('jupiter')" onmouseout="onShowInfo(null)">
-					<a href="jupiter.html" id="jupiter-info">Jupiter</a></li>
-				<li onmouseover="onShowInfo('saturn')" onmouseout="onShowInfo(null)">
-					<a href="#" id="saturn-info">Saturn</a></li>
-				<li onmouseover="onShowInfo('uranus')" onmouseout="onShowInfo(null)">
-					<a href="#" id="uranus-info">Uranus</a></li>
-				<li onmouseover="onShowInfo('neptune')" onmouseout="onShowInfo(null)">
-					<a href="#" id="neptune-info">Neptune</a></li>
-			</ul>
-		</nav>
-
-		<div id="info-left">
-			<h1 id="header-distance">Distance from sun</h1>
-			<p class="infos" id="distance"></p>
-			<h1 id="header-length">Length of year</h1>
-			<p class="infos" id="length"></p>
-		</div>
-
-		<div id="info-right">
-			<h1 id="header-size">Size</h1>
-			<p class="infos" id="size"></p>
-			<h1 id="header-type">Planet type</h1>
-			<p class="infos" id="type"></p>
-		</div>
 	</main>
-
+	<!-- section for routing-->
 	<section id="router-view"></section>
 
 	<footer id="contact">
@@ -134,10 +42,102 @@
 	</footer>
 </body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"
-	integrity="sha256-MPgtcamIpCPKRRm1ppJHkvtNBAuE71xcOM+MmQytXi8=" crossorigin="anonymous"></script>
-
+<!---------------------- TEMPLATES ------------------------------------->
+<!-- Template welcome shows animation of solar system + infos about planets and basic welcome text-->
 <script id="template-welcome" type="text/template">
+	<div id="universe">
+		<div id="solar-system" class="earth">
+			<div id="mercury" class="orbit">
+				<div class="pos">
+					<div class="planet">
+					</div>
+				</div>
+			</div>
+			<div id="venus" class="orbit">
+				<div class="pos">
+					<div class="planet">
+					</div>
+				</div>
+			</div>
+			<div id="earth" class="orbit">
+				<div class="pos">
+					<div class="planet">
+					</div>
+				</div>
+			</div>
+			<div id="mars" class="orbit">
+				<div class="pos">
+					<div class="planet">
+					</div>
+				</div>
+			</div>
+			<div id="jupiter" class="orbit">
+				<div class="pos">
+					<div class="planet">
+					</div>
+				</div>
+			</div>
+			<div id="saturn" class="orbit">
+				<div class="pos">
+					<div class="planet">
+						<div class="ring"></div>
+					</div>
+				</div>
+			</div>
+			<div id="uranus" class="orbit">
+				<div class="pos">
+					<div class="planet">
+					</div>
+				</div>
+			</div>
+			<div id="neptune" class="orbit">
+				<div class="pos">
+					<div class="planet">
+					</div>
+				</div>
+			</div>
+			<div id="sun">
+			</div>
+		</div>
+	</div>
+
+	<nav id="planets-list">
+		<ul>
+			<li onmouseover="onShowInfo(null)">
+				<a href="#" id="title">Solar system</a></li>
+			<li onmouseover="onShowInfo('mercury')" onmouseout="onShowInfo(null)">
+				<a href="mercury.html" id="mercury-info">Mercury</a></li>
+			<li onmouseover="onShowInfo('venus')" onmouseout="onShowInfo(null)">
+				<a href="https://en.wikipedia.org/wiki/Venus" id="venus-info">Venus</a>
+			</li>
+			<li onmouseover="onShowInfo('earth')" onmouseout="onShowInfo(null)">
+				<a href="#" id="earth-info">Earth</a></li>
+			<li onmouseover="onShowInfo('mars')" onmouseout="onShowInfo(null)">
+				<a href="mars.html" id="mars-info">Mars</a></li>
+			<li onmouseover="onShowInfo('jupiter')" onmouseout="onShowInfo(null)">
+				<a href="jupiter.html" id="jupiter-info">Jupiter</a></li>
+			<li onmouseover="onShowInfo('saturn')" onmouseout="onShowInfo(null)">
+				<a href="#" id="saturn-info">Saturn</a></li>
+			<li onmouseover="onShowInfo('uranus')" onmouseout="onShowInfo(null)">
+				<a href="#" id="uranus-info">Uranus</a></li>
+			<li onmouseover="onShowInfo('neptune')" onmouseout="onShowInfo(null)">
+				<a href="#" id="neptune-info">Neptune</a></li>
+		</ul>
+	</nav>
+
+	<div id="info-left">
+		<h1 id="header-distance">Distance from sun</h1>
+		<p class="infos" id="distance"></p>
+		<h1 id="header-length">Length of year</h1>
+		<p class="infos" id="length"></p>
+	</div>
+
+	<div id="info-right">
+		<h1 id="header-size">Size</h1>
+		<p class="infos" id="size"></p>
+		<h1 id="header-type">Planet type</h1>
+		<p class="infos" id="type"></p>
+	</div>
 	<article>
 		<p id="welcome">
 			Welcome to my page. My name is <b>Katka Golenyová</b>. I live in <i>our Solar system</i>. I am a <i>really sad for Pluto</i>.
@@ -146,6 +146,8 @@
 	</article>
 </script>
 
+
+<!-- commentTemplate is template for each comment (opinions or comment for asticle) -->
 <script id="commentTemplate" type="text/template">
     <div class="comment">
         <img src={{url}}>
@@ -160,6 +162,53 @@
 	</div>
 </script>
 
+<!-- new opinion form -->
+<script id="template-addOpinion" type="text/template">
+	<h4> Add new opinion</h4>
+    <form id="form" onsubmit= "return addOpinion(event)">
+		<label class="required" for="name">Name </label>
+		<input type="text" id="name" name="name" placeholder="John" required minlength="4" maxlength="60" value='{{author}}'>
+
+		<label class="required" for="email">E-mail </label>
+		<input type="email" id="email" name="email" placeholder="@" value="{{email}}" required>
+
+		<label for="url">Image URL </label>
+		<input type="url" id="url" name="url" placeholder="http://...">
+
+		<label for="keywords">Opinion keywords</label>
+		<input list="kw" type="text" id="keywords" name="keywords">
+		<datalist id="kw">
+			<option value="AboutArticle"></option>
+			<option value="AboutWebApplication"></option>
+			<option value="SolarSystem"></option>
+			<option value="Planets"></option>
+			<option value="Asteroids"></option>
+			<option value="Exploration"></option>
+		</datalist>
+
+		<label for="titlecomment">Titile of your opinion</label>
+		<input type="text" id="titlecomment" name="titlecomment" placeholder="Amazing title of comment">
+
+		<label class="required" for="comment">Your opinion </label>
+		<textarea id="comment" rows="1" cols="50" required>jjj
+		</textarea>
+
+		<p>Would you like to show your email in opinion? </p>
+		<label for="yes"> yes</label>
+		<input type="radio" id="yes" name="showemail" value=true checked>
+
+		<label for="no"> no </label>
+		<input type="radio" id="no" name="showemail" value=false>
+
+		<input type="checkbox" id="terms" name="terms" value="terms" required>
+		<label for="terms" id=terms-label> Agree with <a href="#">terms</a></label>
+
+		<button class="button" type="submit" id="submit">Submit</button>
+		<button class="button" type="reset" value="Reset" onclick="reset()">Reset</button>
+	</form>
+</script>
+
+<!-- template for list of articled with links -->
 <script id="articlesTemplate" type="text/template">
 	<div class="article">
         <img src={{imageLink}}>
@@ -167,8 +216,7 @@
             <h3><a href="{{detailLink}}">{{title}}</a></h3>
 			<p class="createdDate"> Created on {{dateCreated}} by {{author}}</p>
 			<p class="createdDate"> Last updated {{lastUpdated}}</p>
-			<p>{{content}}</p>
-			<!--button class="button" onclick={{showDetail}}>Show me more</button-->
+			<p class="p">{{{content}}}</p>
         </span>                
         <div class="keywords">
             {{tags}}
@@ -176,14 +224,15 @@
 	</div>
 </script>
 
+
+<!-- template for article detail-->
 <script id="template-article" type="text/template">
     <article class="article">
 		<img src={{imageLink}}>
         <span class="content">
             <h3>{{title}}</h3>
 			<p class="createdDate"> Created by {{author}}</p>
-			<p>{{content}}</p>
-			<!--button class="button" onclick={{showDetail}}>Show me more</button-->
+			<p class="p">{{{content}}}</p>
 		</span>                
         <div class="keywords">
             {{tags}}
@@ -191,6 +240,7 @@
 	</article>
 	
 	<section id="comments"></section>
+	<section id="newCommentForm"></section>
 
     <footer>
         <a href="{{backLink}}" class="linkAsButton"> << Back </a>  | 
@@ -201,15 +251,17 @@
 
 </script>
 
+
+<!-- form for adding new article-->
 <script id="template-article-form" type="text/template">
 
-		<h3>{{formTitle}}</h3>
+		<h4>{{formTitle}}</h4>
         <form id="form" onsubmit="return {{formSubmitCall}}">
             <label class="required" for="author">Author </label>
-            <input type="text" id="author" name="author" placeholder="John" required minlength="4" maxlength="60" value={{author}}>
+            <input type="text" id="author" name="author" placeholder="John" required minlength="4" maxlength="60" value='{{author}}'>
 
             <label class="required" for="articletitle">Title </label>
-            <input type="text" id="articletitle" name="articletitle" value={{title}} required>
+            <input type="text" id="articletitle" name="articletitle" required value={{title}} >
 
             <label for="url">Image URL </label>
             <input type="url" id="imageUrl" name="url" placeholder="http://..." value="{{imageLink}}"> or 
@@ -227,7 +279,7 @@
             <textarea
                     name="content" id="content" spellcheck="true" lang="sk"
                     cols="50" rows="5" required
-                    title="Article content, mandatory item, can be plain text or in HTML.">{{content}}</textarea>
+                    title="Article content, mandatory item, can be plain text or in HTML.">{{{content}}}</textarea>
         
             <label for="tags">Keywords:</label>
             <input  type="text" name="tags" id="tags" value="{{tags}}" size="50"
@@ -239,12 +291,13 @@
         </form>
 </script>
 
+<!-- add comment for article -->
 <script id="template-comment-form" type="text/template">
 
-	<h3>{{formTitle}}</h3>
+	<h4>{{formTitle}}</h4>
 	<form id="form" onsubmit="return {{formSubmitCall}}">
 		<label class="required" for="author">Author </label>
-		<input type="text" id="author" name="author" placeholder="John" required minlength="4" maxlength="60" value="{{author}}">
+		<input type="text" id="author" name="author" placeholder="John" minlength="4" maxlength="60" value="{{author}}">
 
 		<label for="content">Content:</label>
 		<textarea
@@ -253,7 +306,7 @@
 
 		<button class="button" type="submit" id="submit">Submit</button>
 		<button class="button" type="reset" value="Reset" onclick="reset()">Reset</button>
-		<a class="button" href="{{backLink}}">Close</button>
+		<a class="button" onclick="closeForm()">Close</a>
 	</form>
 </script>
 
@@ -269,13 +322,9 @@
 
 </script>
 
-
-<script type="module" src="scripts/routerInit.js"></script>
-<script src="scripts/planetsInfo.js"></script>
-<script src="scripts/handleArticleForms.js"></script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-
+<!-- Google oAuth handling-->
 <script>
+
 	function onSignIn(googleUser) {
 		var profile = googleUser.getBasicProfile();
 		document.getElementById("oAuthInfo").innerHTML = " You are signed as " + profile.getName() + "    <a class='button' href='#' onclick='signOut();''>Sign out</a>"
@@ -290,5 +339,15 @@
 
 	}
 </script>
+
+<!-- scripts -->
+<script type="module" src="scripts/routerInit.js"></script>
+<script src="scripts/planetsInfo.js"></script>
+<script src="scripts/handleArticleForms.js"></script>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"
+	integrity="sha256-MPgtcamIpCPKRRm1ppJHkvtNBAuE71xcOM+MmQytXi8=" crossorigin="anonymous"></script>
+
 
 </html>
