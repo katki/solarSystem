@@ -1,8 +1,10 @@
-let discussion = [];
-if (localStorage.discussion) discussion = JSON.parse(localStorage.discussion);
-
 const articlesPerPage = 20;
 const urlBase = "http://wt.kpi.fei.tuke.sk/api";
+const back4appURL = "https://parseapi.back4app.com/classes/opinions";
+const tag = "solarSystem";
+
+const apiKey = "dyN63OIBos5My08QmXrc9Ci2qypbq6hQgoUeuXqp";
+const appId = "gXH1AQMIHBTbR7lU8Y8UyAD7V8yqYOQlRqY6bHIK";
 
 export default [
 
@@ -18,7 +20,7 @@ export default [
     }, {
         hash: "commentSection",
         target: "router-view",
-        getTemplate: renderComments
+        getTemplate: renderOpinions
     }, {
         hash: "addOpinion",
         target: "router-view",
@@ -44,6 +46,10 @@ export default [
         hash: "newCommentForArticle",
         target: "comments",
         getTemplate: newCommentForArticle
+    }, {
+        hash: "commentsForArticle",
+        target: "comments",
+        getTemplate: loadCommentsForArticle
     }
 
 ];
@@ -53,9 +59,9 @@ async function fetchAndDisplayArticles(targetElm, current, total) {
     let urlParams = "";
 
     if (current && total) {
-        urlParams += `?offset=${current}&max=${articlesPerPage}`;
+        urlParams += `?offset=${current}&max=${articlesPerPage}&tag=${tag}`;
     } else {
-        urlParams += `?max=${articlesPerPage}`;
+        urlParams += `?max=${articlesPerPage}&tag=${tag}`;
     }
 
     try {
@@ -88,8 +94,8 @@ async function fetchAndDisplayArticles(targetElm, current, total) {
     function renderArticles(targetElm) {
         const articleElement = document.getElementById(targetElm);
         const articlesTemplate = document.getElementById("articlesTemplate");
-        const prev = current - 1 ? "<a class='button' href='#articles/" + (current - 1) + "/" + total + "'>Prev</a>" : "";
-        const next = "<a class='button' href='#articles/" + (current + 1) + "/" + total + "'>Next</a>";
+        const prev = current > 0 ? "<a class='button' href='#articles/" + (current - 10) + "/" + total + "'>Prev</a>" : "";
+        const next = current + 10 < total ? "<a class='button' href='#articles/" + (current + 10) + "/" + total + "'>Next</a>" : "";
 
         articleElement.innerHTML = "";
         if (articleList.length > 0) {
@@ -113,6 +119,8 @@ function newArticleForm(targetElm) {
     articleInfo.formSubmitCall = `addArticle( event, '${urlBase}')`;
     articleInfo.urlBase = urlBase;
     articleInfo.backLink = `#articles`;
+
+    if (gapi.auth2.getAuthInstance().isSignedIn.get()) articleInfo.author = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
 
     document.getElementById(targetElm).innerHTML =
         Mustache.render(
@@ -163,11 +171,16 @@ async function fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, 
 
         const article = await response.json();
 
+        if (article.tags.indexOf(tag)) article.tags.pop();
+        console.log(article.tags)
+
         if (forEdit) {
             article.formTitle = "Article Edit";
             article.formSubmitCall = `processArtEditFrmData(event,${artIdFromHash},${offsetFromHash},${totalCountFromHash},'${urlBase}')`;
             article.urlBase = urlBase;
             article.backLink = `#article/${artIdFromHash}/${offsetFromHash}/${totalCountFromHash}`;
+            if (gapi.auth2.getAuthInstance().isSignedIn.get()) article.author = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
+
 
             document.getElementById(targetElm).innerHTML = Mustache.render(document.getElementById("template-article-form").innerHTML, article);
         } else {
@@ -178,15 +191,7 @@ async function fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, 
             document.getElementById(targetElm).innerHTML = Mustache.render(document.getElementById("template-article").innerHTML, article);
         }
 
-        const commentsRes = await fetch(`${url}/comment`);
-
-        if (!commentsRes) throw new Error(`Server answered with ${commentsRes.status}: ${commentsRes.statusText}.`);
-
-        const comments = await commentsRes.json();
-
-        console.log(comments)
-
-        renderComments("comments", comments.comments, true);
+        loadCommentsForArticle(targetElm, artIdFromHash, 0);
 
     } catch (error) {
         const errMsgObj = { errMessage: error };
@@ -198,13 +203,32 @@ async function fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, 
     }
 }
 
+async function loadCommentsForArticle(targetElm, artIdFromHash, offset) {
+    const url = `${urlBase}/article/${artIdFromHash}/comment?max=10&offset=${offset}`;
+    console.log(url)
+    try {
+        const commentsRes = await fetch(url);
+        if (!commentsRes.ok) throw new Error(`Server answered with ${commentsRes.status}: ${commentsRes.statusText}.`);
+
+        const comments = await commentsRes.json();
+
+        renderComments("comments", artIdFromHash, comments.comments, comments.meta.offset, comments.meta.totalCount);
+
+    } catch (error) {
+        alert("loadCommentsForArticle: " + error);
+    }
+}
+
 function newCommentForArticle(targetElem, id) {
     let info = {
         formSubmitCall: `addComment( event, '${urlBase}',${id})`,
         urlBase: urlBase,
         backLink: `#articles`,
-        formTitle: "Add new comment"
+        formTitle: "Add new comment",
     };
+
+    if (gapi.auth2.getAuthInstance().isSignedIn.get()) info.author = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
+
 
     document.getElementById(targetElem).innerHTML =
         Mustache.render(
@@ -224,16 +248,46 @@ function createArticles(responseJSON) {
     return responseJSON.articles;
 }
 
-function renderComments(targetElm, sourceData, fromServer) {
-    if (!fromServer) sourceData = discussion;
-
+function renderComments(targetElm, artIdFromHash, sourceData, current, total) {
+    console.log(current + "  " + total)
+    current = parseInt(current);
     const emptyComments = "<p class='info'> No comments yet.</p>"
     const commentElement = document.getElementById(targetElm);
+    const n = current + 10;
 
-    commentElement.innerHTML = "";
+    const prev = current > 0 ? "<a class='button' href='#commentsForArticle/" + artIdFromHash + "/" + (current - 10) + "'>Prev</a>" : "";
+    const next = n < total ? "<a class='button' href='#commentsForArticle/" + artIdFromHash + "/" + n + "'>Next</a>" : "";
 
-    if (sourceData.length > 0) commentElement.innerHTML = sourceData.reduce((a, i) => a + generate(i, fromServer), "");
-    else commentElement.innerHTML = emptyComments;
+    if (sourceData.length > 0) {
+        commentElement.innerHTML = sourceData.reduce((a, i) => a + generate(i, true), "") + prev + next;
+    } else {
+        commentElement.innerHTML = emptyComments;
+    }
+}
+
+async function renderOpinions(targetElm) {
+    const emptyComments = "<p class='info'> No comments yet.</p>"
+    const commentElement = document.getElementById(targetElm);
+    try {
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-Parse-Application-Id': appId,
+                'X-Parse-REST-API-Key': apiKey,
+                'Content-Type': 'application/json',
+            },
+        };
+        const response = await fetch(back4appURL, options);
+        if (!response.ok) throw new Error(`Server answered with ${response.status}: ${response.statusText}.`);
+
+        let discussion = await response.json();
+        console.log(discussion)
+        if (discussion.results.length > 0) commentElement.innerHTML = discussion.results.reduce((a, i) => a + generate(i, false), "");
+        else commentElement.innerHTML = emptyComments;
+
+    } catch (err) {
+        alert(err);
+    }
 }
 
 function generate(comment, fromServer) {
@@ -266,6 +320,6 @@ function removeOldComments() {
         }
     }
     discussion.length -= removed;
-    renderComments("router-view", discussion);
+    renderOpinions("router-view", discussion);
     localStorage.discussion = JSON.stringify(discussion);
 }

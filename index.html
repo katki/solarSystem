@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
 	<link rel="stylesheet" type="text/css" href="styles/mainStyles.css">
 	<meta charset="utf-8">
+	<meta name="google-signin-client_id"
+		content="253763235228-6vfei6ver861uu92l2mp3h7iqk8pskfe.apps.googleusercontent.com">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400%7CPlayfair+Display&display=swap" rel="stylesheet">
 	<title>Solar system | Overview</title>
 </head>
@@ -17,10 +19,13 @@
 		<nav id="main-nav">
 			<ul>
 				<li><a href="#welcome">Welcome</a></li>
-				<li><a href="#articles/1/20">Articles</a></li>
+				<li><a href="#articles">Articles</a></li>
 				<li><a href="#commentSection">Opinions</a></li>
 				<li><a href="newComment.html">New opinion</a></li>
 				<li><a href="#artInsert">New article</a></li>
+				<li>
+					<div class="g-signin2" data-onsuccess="onSignIn"></div>
+				</li>
 			</ul>
 		</nav>
 		<div id="universe">
@@ -124,6 +129,7 @@
 		<p>Created by Katarina Golenyova (<a href="mailto:katarina.golenyova@student.tuke.sk">
 				katarina.golenyova@student.tuke.sk</a>) <button class="button" id="upButton" onclick="up()">⬆</button>
 		</p>
+		<div id="oAuthInfo"></div>
 
 	</footer>
 </body>
@@ -238,7 +244,7 @@
 	<h3>{{formTitle}}</h3>
 	<form id="form" onsubmit="return {{formSubmitCall}}">
 		<label class="required" for="author">Author </label>
-		<input type="text" id="author" name="author" placeholder="John" required minlength="4" maxlength="60">
+		<input type="text" id="author" name="author" placeholder="John" required minlength="4" maxlength="60" value="{{author}}">
 
 		<label for="content">Content:</label>
 		<textarea
@@ -267,5 +273,22 @@
 <script type="module" src="scripts/routerInit.js"></script>
 <script src="scripts/planetsInfo.js"></script>
 <script src="scripts/handleArticleForms.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script>
+	function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+		document.getElementById("oAuthInfo").innerHTML = " You are signed as " + profile.getName() + "    <a class='button' href='#' onclick='signOut();''>Sign out</a>"
+	}
+
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+			console.log('User signed out.');
+		});
+		document.getElementById("oAuthInfo").innerHTML = ""
+
+	}
+</script>
 
 </html>

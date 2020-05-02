@@ -1,12 +1,12 @@
+const back4appURL = "https://parseapi.back4app.com/classes/opinions";
+const apiKey = "dyN63OIBos5My08QmXrc9Ci2qypbq6hQgoUeuXqp";
+const appId = "gXH1AQMIHBTbR7lU8Y8UyAD7V8yqYOQlRqY6bHIK";
 
 const formElement = document.getElementById('form');
 formElement.addEventListener('onclick', e => e.preventDefault());
 
-let discussion = [];
+console.log("here");
 
-if (localStorage.discussion) {
-    discussion = JSON.parse(localStorage.discussion);
-}
 
 function onRocket() {
     document.getElementById('rocket-path').classList.add("fly-out");
@@ -19,11 +19,16 @@ function onRocket() {
     document.getElementById('dust-right').classList.add("hide-out");
 }
 
-function addComment(evt) {
+async function addComment(evt) {
+    evt.preventDefault();
+    console.log("1");
+
     if (document.getElementById("terms").checked == false) {
         alert("You can not add comment, if you don't agree with terms.");
         return;
     }
+
+    console.log("2");
 
     const inputs = document.getElementById("form").elements;
     let oComment = {};
@@ -34,17 +39,33 @@ function addComment(evt) {
     oComment.created = new Date();
     oComment.title = inputs.title.value;
     oComment.showName = inputs.yes.checked;
-    console.log(inputs.keywords)
     oComment.keywords = inputs.keywords.value;
 
-    discussion.push(oComment)
-    onRocket();
+    console.log("3");
 
-    localStorage.discussion = JSON.stringify(discussion);
-    formElement.reset();
+    console.log(oComment);
+
+
+    onRocket();
+    try {
+        const options = {
+            method: 'POST',
+            headers: {
+                'X-Parse-Application-Id': appId,
+                'X-Parse-REST-API-Key': apiKey,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(oComment),
+        };
+        const response = await fetch(back4appURL, options);
+        if (!response.ok) throw new Error(`Server answered with ${response.status}: ${response.statusText}.`);
+    } catch (error) {
+        console.log(error)
+        // alert(error);
+    }
+    //formElement.reset();
 
     window.setTimeout(function () {
         window.location.href = "index.html#commentSection";
     }, 3000);
 }
-

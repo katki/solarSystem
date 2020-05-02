@@ -54,6 +54,7 @@ which is processed by the function fetchAndProcessArticle() in routes.js
 
  */
 
+const tag = "solarSystem";
 
 
 //Pridanie funkcionality pre kliknutie na tlacidlo "Nahraj obrázok / Upload image"
@@ -168,16 +169,14 @@ function processArtEditFrmData(event, articleId, offset, totalCount, serverUrl) 
         delete articleData.tags;
     } else {
         articleData.tags = articleData.tags.split(",");
-        articleData.tags = articleData.tags.map(tag => tag.trim()); //odstráni prázdne znaky na začiatku a konci každého kľúčového slova
-        //deletes white spaces from the beginning and the end of each tag string
-
-        //newArtData.tags=newArtData.tags.map(function(tag) {return tag.trim()}); //alternativny sposob zapisu predch. prikazu
-        //an alternative way of writing the previous command
+        articleData.tags = articleData.tags.map(tag => tag.trim());
 
         articleData.tags = articleData.tags.filter(tag => tag);
         if (articleData.tags.length == 0) {
             delete articleData.tags;
         }
+
+        articleData.tags.push(tag)
     }
 
     const postReqSettings = //an object wih settings of the request
@@ -210,9 +209,7 @@ function processArtEditFrmData(event, articleId, offset, totalCount, serverUrl) 
 
 function addArticle(event, serverUrl) {
     event.preventDefault()
-    console.log("here");
 
-    const inputs = document.getElementById("form").elements;
     const articleData = {
         title: document.getElementById("articletitle").value.trim(),
         content: document.getElementById("content").value.trim(),
@@ -236,6 +233,16 @@ function addArticle(event, serverUrl) {
 
     if (!articleData.tags) {
         delete articleData.tags;
+    } else {
+        articleData.tags = articleData.tags.split(",");
+        articleData.tags = articleData.tags.map(tag => tag.trim());
+
+        articleData.tags = articleData.tags.filter(tag => tag);
+        if (articleData.tags.length == 0) {
+            delete articleData.tags;
+        }
+
+        articleData.tags.push(tag)
     }
 
     const postReqSettings = {
