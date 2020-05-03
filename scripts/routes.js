@@ -184,6 +184,9 @@ async function deleteArticle(targetElm, artIdFromHash) {
 async function fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, totalCountFromHash, forEdit) {
     const url = `${urlBase}/article/${artIdFromHash}`;
 
+    if (!offsetFromHash) offsetFromHash = 0;
+    if (!totalCountFromHash) totalCountFromHash = 0;
+
     try {
         const response = await fetch(url);
 
@@ -192,7 +195,7 @@ async function fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, 
         }
 
         const article = await response.json();
-        if (article.tags.indexOf(tag) != -1) article.tags.pop();
+        article.tags = article.tags.filter(t => t != tag);
         console.log(article.tags)
 
         if (forEdit) {
