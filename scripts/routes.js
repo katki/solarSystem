@@ -101,7 +101,8 @@ async function fetchAndDisplayArticles(targetElm, current, total) {
 
         articles.forEach((article, index) => {
             articleList[index].content = article.content;
-            if (articleList[index].tags.indexOf(tag) != -1) articleList[index].tags.pop();
+            articleList[index].tags = articleList[index].tags.filter(t => t != tag);
+            articleList[index].keywordsDisplay = articleList[index].tags.length == 0 ? "none" : "block";
         });
 
         document.getElementById("routeArticles").href = "#articles/" + current + "/" + total;

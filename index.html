@@ -2,9 +2,6 @@
 <html lang="en">
 
 <head>
-
-	<link rel="stylesheet" type="text/css" href="styles/newComment.css">
-	<link rel="stylesheet" type="text/css" href="styles/discussion.css">
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
 	<link rel="stylesheet" type="text/css" href="styles/mainStyles.css">
 	<meta charset="utf-8">
@@ -20,9 +17,10 @@
 			<ul>
 				<li><a href="#welcome">Welcome</a></li>
 				<li><a href="#articles" id="routeArticles">Articles</a></li>
+
+				<li><a href="#artInsert">New article</a></li>
 				<li><a href="#commentSection">Opinions</a></li>
 				<li><a href="#addOpinion">New opinion</a></li>
-				<li><a href="#artInsert">New article</a></li>
 				<li>
 					<div class="g-signin2" data-onsuccess="onSignIn"></div>
 				</li>
@@ -218,7 +216,7 @@
 			<p class="createdDate"> Last updated {{lastUpdated}}</p>
 			<p class="p">{{{content}}}</p>
         </span>                
-        <div class="keywords">
+        <div style="display:{{keywordsDisplay}}" class="keywords">
             {{tags}}
         </div>
 	</div>
@@ -286,7 +284,6 @@
                     title="Keyword list, comma separated." placeholder="e.g. village, drama" />
 
             <button class="button" type="submit" id="submit">Submit</button>
-            <button class="button" type="reset" value="Reset" onclick="reset()">Reset</button>
             <a class="button" href="{{backLink}}">Close</button>
         </form>
 </script>
@@ -305,7 +302,6 @@
 				cols="50" rows="5" required></textarea>
 
 		<button class="button" type="submit" id="submit">Submit</button>
-		<button class="button" type="reset" value="Reset" onclick="reset()">Reset</button>
 		<a class="button" onclick="closeForm()">Close</a>
 	</form>
 </script>
