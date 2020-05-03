@@ -93,3 +93,22 @@ window.addEventListener("scroll", function (e) {
         document.getElementById("upButton").style.display = "block";
     else document.getElementById("upButton").style.display = "none";
 });
+
+document.addEventListener("click",
+    function (event) {
+        if (!event.target.matches("#menuCl, #menuTitle")) hideMenu();
+    }
+);
+
+//--------------------------------------------------------------------------------
+
+function displayOrHideMenu() {
+    let nav = document.getElementById("main-nav").style;
+    if (nav.display == "none") { nav.display = "block"; }
+    else nav.display = "none";
+}
+
+function hideMenu() {
+    document.getElementById("main-nav").style.display = "none";
+
+}

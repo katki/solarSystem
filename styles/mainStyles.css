@@ -68,7 +68,6 @@ h3 a {
 
 h4{
     text-align: center;
-    margin-top: 6vh;
 }
 
 a:hover{
@@ -390,6 +389,45 @@ h3{
     padding-top: 10vh;
 }
 
+/***********************************************************************************************************/
+/*Properties related to the dropdown menu*/
+
+
+#main-nav{
+    display: none;
+    position: absolute;
+    top:0;
+    left: 0;
+}
+
+#main-nav ul {
+    background-color: #121e40;
+    margin: 0px;
+    padding-top: 4em;
+}
+
+#main-nav ul li {
+    display: block;
+}
+
+#menuTitle {
+    margin-bottom: 0px;
+    border-bottom: none;
+    font-size: 2em;
+    text-align: left;
+    width: auto;
+    position: relative;
+    z-index: 5000;
+    padding: 1em;
+}
+
+#loginButton{
+    width: 120px;
+    margin-left: calc((100vw - 180px)/2);
+}
+
+
+
 
 @media only screen and (max-width: 900px) {
 	ul li {
@@ -416,12 +454,34 @@ h3{
         margin-left: 10vw;
     }
     #router-view{
-        margin-top: 100px;
+        margin-top: 1em;
     }
+  
+  .comment .content {
+    width: calc(90vw - 110px);
+  }
+  
+  .comment, .article{
+    width: 90vw;
+    margin: 5% 5vw;
+    min-height: 144px;
+  }
+  
+  .keywords{
+    width: 30vw;
+    margin-left: calc(70vw - 140px);
+  }
   }
 
 
 @media only screen and (max-width: 400px) {
+  .comment .content {
+    width: calc(94vw - 110px);
+  }
+  .comment, .article{
+    width: 94vw;
+    margin: 5% 3vw;
+  }
 	#imageUrl{
         width: 100%;
     }
@@ -431,4 +491,7 @@ h3{
     .button{
         width: 100%;
     }
+  .keywords{
+    margin-left: calc(74vw - 140px);
+  }
   }

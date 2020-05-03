@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
 	<link rel="stylesheet" type="text/css" href="styles/mainStyles.css">
 	<meta charset="utf-8">
@@ -13,6 +15,7 @@
 
 <body onload="onInit()">
 	<main>
+		<button id="menuTitle" onclick="displayOrHideMenu()">&#9776</button>
 		<nav id="main-nav">
 			<ul>
 				<li><a href="#welcome">Welcome</a></li>
@@ -21,7 +24,7 @@
 				<li><a href="#artInsert">New article</a></li>
 				<li><a href="#commentSection">Opinions</a></li>
 				<li><a href="#addOpinion">New opinion</a></li>
-				<li>
+				<li id="loginButton">
 					<div class="g-signin2" data-onsuccess="onSignIn"></div>
 				</li>
 			</ul>

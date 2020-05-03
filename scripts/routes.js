@@ -141,6 +141,7 @@ function newArticleForm(targetElm) {
     articleInfo.formSubmitCall = `addArticle( event, '${urlBase}')`;
     articleInfo.urlBase = urlBase;
     articleInfo.backLink = `#articles`;
+    articleInfo.formTitle = "Add new article";
 
     if (gapi.auth2.getAuthInstance().isSignedIn.get()) articleInfo.author = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName();
 
