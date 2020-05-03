@@ -96,7 +96,7 @@ window.addEventListener("scroll", function (e) {
 
 document.addEventListener("click",
     function (event) {
-        if (!event.target.matches("#menuCl, #menuTitle")) hideMenu();
+        if (!event.target.matches("#menuTitle")) hideMenu();
     }
 );
 
@@ -104,11 +104,10 @@ document.addEventListener("click",
 
 function displayOrHideMenu() {
     let nav = document.getElementById("main-nav").style;
-    if (nav.display == "none") { nav.display = "block"; }
-    else nav.display = "none";
+    if (nav.display == "none") nav.display = "block";
+    else hideMenu();
 }
 
 function hideMenu() {
     document.getElementById("main-nav").style.display = "none";
-
 }

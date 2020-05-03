@@ -1,5 +1,5 @@
 const articlesPerPage = 10;
-const urlBase = "http://wt.kpi.fei.tuke.sk/api";
+const urlBase = "https://wt.kpi.fei.tuke.sk/api";
 const back4appURL = "https://parseapi.back4app.com/classes/opinions";
 const tag = "solarSystem";
 
